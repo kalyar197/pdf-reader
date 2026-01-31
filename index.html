@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Reader with Translation</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+
+        #pdf-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        /* Brightness overlay */
+        #brightness-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0);
+            pointer-events: none !important;
+            z-index: 100;
+            transition: background 0.2s ease;
+        }
+
+        /* Translation popup */
+        #translation-popup {
+            position: fixed;
+            background: #2b2b2b;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            display: none;
+            z-index: 3000;
+            max-width: 400px;
+            min-width: 250px;
+            pointer-events: auto !important;
+        }
+
+        #translation-popup .original {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #fff;
+            font-size: 13px;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            padding-bottom: 8px;
+        }
+
+        #translation-popup .translated {
+            color: #ffd700;
+            font-size: 15px;
+            font-weight: 500;
+            line-height: 1.5;
+        }
+
+        #translation-popup .loading {
+            color: #aaa;
+            font-style: italic;
+        }
+
+
+        /* File drop zone styling */
+        #drop-zone {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 40px 60px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 3px dashed #ccc;
+            border-radius: 15px;
+            text-align: center;
+            font-size: 18px;
+            color: #666;
+            z-index: 50;
+            pointer-events: none !important;
+            display: none;
+        }
+
+        body.dragging #drop-zone {
+            display: block;
+            border-color: #4CAF50;
+            background: rgba(76, 175, 80, 0.1);
+            color: #4CAF50;
+        }
+
+        /* PDF viewer iframe */
+        #pdf-viewer {
+            width: 100%;
+            height: 100%;
+            border: none;
+            position: relative;
+            z-index: 1;
+        }
+
+        #pdf-container {
+            position: relative;
+            z-index: 1;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Drop zone indicator -->
+    <div id="drop-zone">
+        📄 Drop PDF file here to open
+    </div>
+
+    <!-- Brightness overlay -->
+    <div id="brightness-overlay"></div>
+
+    <!-- Translation popup -->
+    <div id="translation-popup">
+        <div class="original"></div>
+        <div class="translated loading">Translating...</div>
+    </div>
+
+    <!-- PDF Container -->
+    <div id="pdf-container">
+        <iframe id="pdf-viewer" src="lib/pdfjs-web/viewer.html"></iframe>
+    </div>
+
+    <script src="app.js?v=6"></script>
+</body>
+</html>

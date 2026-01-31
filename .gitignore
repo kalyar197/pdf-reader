@@ -1,0 +1,12 @@
+__pycache__/
+*.pdf
+My chat.txt
+nul
+tmp/
+logs/
+French Readers/
+*.bat
+.claude/
+.playwright-mcp/
+*.map
+lib/build/
